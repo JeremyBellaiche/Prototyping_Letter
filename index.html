@@ -92,7 +92,7 @@
 
 
   function scrollToBottom(){
-    window.scrollTo(0,document.body.scrollHeight);
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
   }
   // SET UP VERSION HTML CODE
   $('#version').html(version);
