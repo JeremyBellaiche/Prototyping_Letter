@@ -64,6 +64,7 @@
 </head>
 <body>
   <header>
+    Actual : <span id="version"></span> <a id="changeVersion" style="float:right">Change</a>
   </header>
   <ul id="messages">
   </ul>
@@ -80,7 +81,20 @@
   <script>
   var socket = io();
   var userId = prompt('What is the ID ?');
+  var version = 'letters';
 
+  // SET UP VERSION HTML CODE
+  $('#version').html(version);
+
+  $('#changeVersion').on('click', function(){
+    if(version == 'letters'){
+      version = 'words';      
+    }
+    else{
+      version = 'letters';
+    }
+    $('#version').html(version);
+  });
   // METHODS
   $('form').submit(function(){
     var msg = {
@@ -92,13 +106,27 @@
     return false;
   })
 
-  $('input').on('keyup', function(){
-    var msg = {
-      'message': $('#m').val(),
-      'author' : userId
-    };
-    socket.emit('write message', msg);
-    return false;
+  $('input').on('keyup', function(event){
+    if(version == 'letters'){    
+      var msg = {
+        'message': $('#m').val(),
+        'author' : userId
+      };
+      socket.emit('write message', msg);
+      return false;
+    }
+    else{
+      // Version if for spaces
+      if(event.keyCode == 32){
+        // It's a space
+        var msg = {
+          'message': $('#m').val(),
+          'author' : userId
+        };
+        socket.emit('write message', msg);
+        return false;
+      }
+    }
   })
 
   // USER IS WRITING A MESSAGE
@@ -106,6 +134,9 @@
     if(msg.author != userId && msg.message !== ''){
       $('#sending li').show();
       $('#sending li').html(msg.message);
+    }
+    else{
+      $('#sending li').hide();
     }
   });
 
