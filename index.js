@@ -30,6 +30,7 @@ io.on('connection', function(socket){
 
   socket.on('send message', function(msg){
     if(msg.message !== ''){
+      console.log(msg.author);
       io.emit('send message', msg);
     }
   })
