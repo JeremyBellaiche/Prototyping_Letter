@@ -29,7 +29,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('send message', function(msg){
-    if(msg !== ''){
+    if(msg.message !== ''){
       io.emit('send message', msg);
     }
   })
