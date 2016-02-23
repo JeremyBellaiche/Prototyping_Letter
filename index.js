@@ -29,7 +29,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('send message', function(msg){
-    io.emit('send message', msg);
+    if(msg !== ''){
+      io.emit('send message', msg);
+    }
   })
 
   socket.on('write message', function(msg){
