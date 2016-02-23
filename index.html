@@ -115,6 +115,7 @@
         'message' : $('#m').val(),
         'author' : userId 
       };
+      console.log(userId);
       socket.emit('send message', msg);
       $('#m').val('');
     }
