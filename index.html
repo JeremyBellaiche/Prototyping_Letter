@@ -108,16 +108,15 @@
   });
   // METHODS
   $('form').submit(function(){
-    if($('#m').val() === ''){
+    if($('#m').val() != ''){
+      var msg = {
+        'message' : $('#m').val(),
+        'author' : userId 
+      };
+      socket.emit('send message', msg);
+      $('#m').val('');
       return false;
     }
-    var msg = {
-      'message' : $('#m').val(),
-      'author' : userId 
-    };
-    socket.emit('send message', msg);
-    $('#m').val('');
-    return false;
   })
 
   $('input').on('keyup', function(event){
