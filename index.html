@@ -38,7 +38,7 @@
       color:#000;
     }
     footer{
-      position: fixed;
+      position: absolute;
       bottom: 0;
       background: #FFF;
       width: 100%;
@@ -145,11 +145,11 @@
     if(msg.author != userId && msg.message !== ''){
       $('#sending li').show();
       $('#sending li').html(msg.message);
-      scrollToBottom();
     }
     else{
       $('#sending li').hide();
     }
+    scrollToBottom();
   });
 
 
