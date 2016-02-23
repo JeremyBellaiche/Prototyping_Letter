@@ -38,7 +38,7 @@
       color:#000;
     }
     footer{
-      position: absolute;
+      position: fixed;
       bottom: 0;
       background: #FFF;
       width: 100%;
@@ -108,6 +108,9 @@
   });
   // METHODS
   $('form').submit(function(){
+    if($('#m').val() === ''){
+      return false;
+    }
     var msg = {
       'message' : $('#m').val(),
       'author' : userId 
