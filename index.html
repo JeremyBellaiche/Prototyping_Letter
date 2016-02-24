@@ -94,7 +94,7 @@
 
     // USER IS WRITING A MESSAGE
     socket.on('write message', function(msg){
-      $('#'+msg.author).remove();
+      $('#sending li#'+msg.author).remove();
       if(msg.author != userId && msg.message !== ''){
         $('#sending').append('<li id="'+msg.author+'" class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
       }
@@ -116,8 +116,6 @@
         $('#messages').append('<li class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
 
       }
-      $('#sending li').hide();
-
       scrollToBottom();
 
     });
