@@ -15,6 +15,10 @@ header{
 
 section{
 	ul{
+		position: absolute;
+	    width: 100%;
+	    left: 0;
+	    bottom: 50px;
 		padding:0 20px;
 		list-style: none;
 		li{
