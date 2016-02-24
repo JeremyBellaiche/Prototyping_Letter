@@ -99,10 +99,10 @@
       $('#messages li#'+msg.author).remove();
       if(msg.author != userId && msg.message !== ''){
         $('#messages').append('<li id="'+msg.author+'" class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+        scrollToBottom();
       }
       else{
       }
-      scrollToBottom();
     });
 
 
