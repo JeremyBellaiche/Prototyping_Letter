@@ -7,6 +7,14 @@
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <footer>
+    <div class="container-fluid">    
+      <form action="">
+        <input placeholder="Enter your message" id="m" autocomplete="off" />
+        <!-- <button>Send</button> -->
+      </form>
+    </div>  
+  </footer>
   <header>
     <div class="container">    
       Actual : <span id="version"></span> <a class="btn btn-info pull-right" id="changeVersion">Change</a>
@@ -25,14 +33,6 @@
 
   <div class="clearfix"></div>
   <div id="bottom"></div>
-  <footer>
-    <div class="container-fluid">    
-      <form action="">
-        <input placeholder="Enter your message" id="m" autocomplete="off" />
-        <!-- <button>Send</button> -->
-      </form>
-    </div>  
-  </footer>
 
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
