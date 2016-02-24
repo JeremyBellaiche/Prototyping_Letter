@@ -132,6 +132,7 @@
       }
       else{
         // $('#messages').append( $('<li>').addClass('you').text(msg.message) ) 
+        $('#messages li#'+msg.author).remove();
         $('#messages').append('<li class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
 
       }
