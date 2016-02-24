@@ -5847,6 +5847,9 @@ section ul {
       background: #FFF;
       float: left; }
 
+p {
+  word-wrap: break-word; }
+
 footer {
   background: #FFF;
   position: fixed;
