@@ -14,11 +14,13 @@
   </header>
 
   <section>
-    <ul id="messages">
-    </ul>
-    <ul id="sending">
-      <!-- <li class="someone" style="display: none;"></li> -->
-    </ul>
+    <div class="container">    
+      <ul id="messages">
+      </ul>
+    </div>
+<!--     <ul id="messages">
+      <li class="someone" style="display: none;"></li>
+    </ul> -->
   </section>
 
   <div class="clearfix"></div>
@@ -94,9 +96,9 @@
 
     // USER IS WRITING A MESSAGE
     socket.on('write message', function(msg){
-      $('#sending li#'+msg.author).remove();
+      $('#messages li#'+msg.author).remove();
       if(msg.author != userId && msg.message !== ''){
-        $('#sending').append('<li id="'+msg.author+'" class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+        $('#messages').append('<li id="'+msg.author+'" class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
       }
       else{
       }

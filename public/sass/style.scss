@@ -15,17 +15,15 @@ header{
 
 section{
 	ul{
-		position: absolute;
-	    width: 100%;
-	    left: 0;
-	    bottom: 50px;
-		padding:0 20px;
-		list-style: none;
+	    padding: 0 20px;
+	    list-style: none;
 		li{
 			padding:5px 10px;
 			width: 70%;
 			border-radius:5px;
 			margin:5px 0;
+			margin-bottom: 50px;
+		    margin-top: -40px;
 			span.author{
 				font-weight:900;
 			}
@@ -60,6 +58,7 @@ footer{
 	left:0;
 	padding:10px 0;
 	input{
+		border-radius:5px;
 		background: #E8E8E8;
 		border: none;
 		padding:5px;

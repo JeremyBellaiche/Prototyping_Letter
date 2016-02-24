@@ -5828,17 +5828,15 @@ header {
   color: #FFF; }
 
 section ul {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 50px;
   padding: 0 20px;
   list-style: none; }
   section ul li {
     padding: 5px 10px;
     width: 70%;
     border-radius: 5px;
-    margin: 5px 0; }
+    margin: 5px 0;
+    margin-bottom: 50px;
+    margin-top: -40px; }
     section ul li span.author {
       font-weight: 900; }
     section ul li.me {
@@ -5862,6 +5860,7 @@ footer {
   left: 0;
   padding: 10px 0; }
   footer input {
+    border-radius: 5px;
     background: #E8E8E8;
     border: none;
     padding: 5px;
