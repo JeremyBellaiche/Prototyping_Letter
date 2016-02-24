@@ -49,7 +49,7 @@
     }
 
     var userId = prompt('What is your name ? Without spaces !');
-
+    userId.replace(/\s/g, '');
     function scrollToBottom(){
       document.getElementById( 'bottom' ).scrollIntoView();
     }
