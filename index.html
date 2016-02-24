@@ -120,8 +120,8 @@
     socket.on('send message', function(msg){
       if(msg.author == userId){
         // Current user
-        // $('#messages').append( $('<li>').addClass('me').text(msg.message) )
-        $('#messages').append('<li class="me"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+        // $('#messages').append('<li class="me"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+        $('#messages').append('<li class="me"><p>'+msg.message+'</p></li>');
       }
       else{
         // $('#messages').append( $('<li>').addClass('you').text(msg.message) ) 
