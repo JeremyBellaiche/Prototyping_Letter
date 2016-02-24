@@ -1,0 +1,61 @@
+@import 'bootstrap';
+
+body {
+	background: #EDEDED;
+	font-family: 'Source Sans Pro', sans-serif;
+	padding-bottom:50px;
+}
+
+
+header{
+	background: #2D72B8;
+	padding:10px;
+	color:#FFF;
+}
+
+section{
+	ul{
+		padding:0 20px;
+		list-style: none;
+		li{
+			padding:5px 10px;
+			width: 70%;
+			border-radius:5px;
+			margin:5px 0;
+			span.author{
+				font-weight:900;
+			}
+			&.me{
+				background: #2D72B8;
+				float:right;
+				color:#FFF;
+				span.author{
+				}
+				p{
+					color:#FFF;
+				}
+			}
+			&.someone{
+				background:#FFF;
+				float:left;
+				li{	
+				}
+			}
+		}
+	}
+}
+
+footer{
+	background:#FFF;
+	position: fixed;
+	bottom:0;
+	width:100%;
+	left:0;
+	padding:10px 0;
+	input{
+		background: #E8E8E8;
+		border: none;
+		padding:5px;
+		width: 100%;
+	}
+}

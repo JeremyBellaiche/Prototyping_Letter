@@ -3,138 +3,74 @@
 <head>
   <title>Socket.IO chat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+  <link rel="stylesheet" href="css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-  <style>
-    *{
-      font-family: 'Source Sans Pro', sans-serif;
-    }
-    body{
-      background: #ededed;
-    }
-    header{
-
-    }
-    ul#messages, ul#sending{
-      padding: 0;
-      list-style: none;
-      margin: 0;
-    }
-    ul li{
-      display: block;
-      width: 60%;
-      background: red;
-      margin:5px;
-      border-radius: 5px;
-      padding:10px;
-      word-wrap: break-word;
-    }
-    ul li.me{
-      background: #2d72b8;
-      color:#FFF;
-      float: right;
-    }
-    ul li.you{
-      background: white;
-      float: left;
-      color:#000;
-    }
-    footer{
-      position: fixed;
-      bottom: 0;
-      background: #FFF;
-      width: 100%;
-      left: 0;
-      padding: 10px;
-      margin: 0;
-    }
-    footer input{
-      width: 94%;
-      border-radius: 2px;
-      border:none;
-      background: #e8e8e8;
-      padding: 10px;
-    }
-    footer button{
-      width: 15%;
-      background: #e8e8e8;
-      border:none;
-      color:#A5A5A5;
-      padding: 10px;
-      text-transform: uppercase;
-    }
-    .clearbottom{
-      clear: both;
-      display: block;
-      margin-bottom: 50px;
-    }
-  </style>
 </head>
 <body>
   <header>
-    Actual : <span id="version"></span> <a id="changeVersion" style="float:right">Change</a>
+    <div class="container">    
+      Actual : <span id="version"></span> <a class="btn btn-info pull-right" id="changeVersion">Change</a>
+    </div>
   </header>
-  <ul id="messages">
-  </ul>
-  <ul id="sending">
-    <li class="you" style="display: none;"></li>
-  </ul>
-  <div class="clearbottom"></div>
-  <footer>  
-    <form action="">
-      <input placeholder="Enter your message" id="m" autocomplete="off" />
-      <!-- <button>Send</button> -->
-    </form>
+
+  <section>
+    <ul id="messages">
+    </ul>
+    <ul id="sending">
+      <!-- <li class="someone" style="display: none;"></li> -->
+    </ul>
+  </section>
+
+  <div class="clearfix"></div>
+  <div id="bottom"></div>
+  <footer>
+    <div class="container-fluid">    
+      <form action="">
+        <input placeholder="Enter your message" id="m" autocomplete="off" />
+        <!-- <button>Send</button> -->
+      </form>
+    </div>  
   </footer>
+
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-  var socket = io();
-  var userId = prompt('What is your name ?');
-  var version = 'letters';
+    var socket = io();
+    var userId = prompt('What is your name ?');
+    var version = 'letters';
 
 
-  function scrollToBottom(){
-    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-  }
-  // SET UP VERSION HTML CODE
-  $('#version').html(version);
-
-  $('#changeVersion').on('click', function(){
-    if(version == 'letters'){
-      version = 'words';      
+    function scrollToBottom(){
+      document.getElementById( 'bottom' ).scrollIntoView();
     }
-    else{
-      version = 'letters';
-    }
+    // SET UP VERSION HTML CODE
     $('#version').html(version);
-  });
-  // METHODS
-  $('form').submit(function(){
-    if($('#m').val() != ''){
-      var msg = {
-        'message' : $('#m').val(),
-        'author' : userId 
-      };
-      console.log(userId);
-      socket.emit('send message', msg);
-      $('#m').val('');
-    }
-    return false;
-  })
 
-  $('input').on('keyup', function(event){
-    if(version == 'letters'){    
-      var msg = {
-        'message': $('#m').val(),
-        'author' : userId
-      };
-      socket.emit('write message', msg);
+    $('#changeVersion').on('click', function(){
+      if(version == 'letters'){
+        version = 'words';      
+      }
+      else{
+        version = 'letters';
+      }
+      $('#version').html(version);
+    });
+    // METHODS
+    $('form').submit(function(){
+      if($('#m').val() != ''){
+        var msg = {
+          'message' : $('#m').val(),
+          'author' : userId 
+        };
+        console.log(userId);
+        socket.emit('send message', msg);
+        $('#m').val('');
+      }
       return false;
-    }
-    else{
-      // Version if for spaces
-      if(event.keyCode == 32){
-        // It's a space
+    })
+
+    $('input').on('keyup', function(event){
+      if(version == 'letters'){    
         var msg = {
           'message': $('#m').val(),
           'author' : userId
@@ -142,39 +78,49 @@
         socket.emit('write message', msg);
         return false;
       }
-    }
-  })
+      else{
+        // Version if for spaces
+        if(event.keyCode == 32){
+          // It's a space
+          var msg = {
+            'message': $('#m').val(),
+            'author' : userId
+          };
+          socket.emit('write message', msg);
+          return false;
+        }
+      }
+    })
 
-  // USER IS WRITING A MESSAGE
-  socket.on('write message', function(msg){
-    if(msg.author != userId && msg.message !== ''){
-      $('#sending li').show();
-      $('#sending li').html(msg.message);
-    }
-    else{
+    // USER IS WRITING A MESSAGE
+    socket.on('write message', function(msg){
+      $('#msg-'+msg.author).remove();
+      if(msg.author != userId && msg.message !== ''){
+        $('#sending').append('<li id="msg-'+msg.author+'" class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+      }
+      else{
+      }
+      scrollToBottom();
+    });
+
+
+    // USER CLICK ON SEND ON A MESSAGE
+    socket.on('send message', function(msg){
+      if(msg.author == userId){
+        // Current user
+        // $('#messages').append( $('<li>').addClass('me').text(msg.message) )
+        $('#messages').append('<li class="me"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+      }
+      else{
+        // $('#messages').append( $('<li>').addClass('you').text(msg.message) ) 
+        $('#messages').append('<li class="someone"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
+
+      }
       $('#sending li').hide();
-    }
-    scrollToBottom();
-  });
 
+      scrollToBottom();
 
-  // USER CLICK ON SEND ON A MESSAGE
-  socket.on('send message', function(msg){
-    if(msg.author == userId){
-      // Current user
-      // $('#messages').append( $('<li>').addClass('me').text(msg.message) )
-      $('#messages').append('<li class="me"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
-    }
-    else{
-      // $('#messages').append( $('<li>').addClass('you').text(msg.message) ) 
-      $('#messages').append('<li class="you"><span class="author">'+msg.author+'</span><p>'+msg.message+'</p></li>');
-
-    }
-    $('#sending li').hide();
-
-    scrollToBottom();
-
-  });
+    });
 
   </script>
 </body>
