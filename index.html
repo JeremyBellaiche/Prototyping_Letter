@@ -76,18 +76,6 @@
       return false;
     })
 
-    $(document).keypress(function(e) {
-      var charTyped = String.fromCharCode(e.which);
-      if (/[a-z\d]/i.test(charTyped)) {
-        if($('#m').val() !== ''){
-          $('#m').focus();
-        }
-        else{
-         $('#m').val(charTyped);
-        }
-      }
-    });
-
     $('input').on('keyup', function(event){
       if(version == 'letters'){    
         var msg = {
