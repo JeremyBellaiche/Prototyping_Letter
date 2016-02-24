@@ -41,9 +41,14 @@
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
     var socket = io();
-    var userId = prompt('What is your name ?');
     var version = 'letters';
 
+    // Launch the prompt modal
+    function hasWhiteSpace(s) {
+      return /\s/g.test(s);
+    }
+
+    var userId = prompt('What is your name ? Without spaces !');
 
     function scrollToBottom(){
       document.getElementById( 'bottom' ).scrollIntoView();
