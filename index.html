@@ -71,6 +71,7 @@
         socket.emit('send message', msg);
         $('#m').val('');
       }
+      // Unfocus the M to show the message
       $('#m').blur();
       return false;
     })
