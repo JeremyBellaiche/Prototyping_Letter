@@ -71,7 +71,7 @@
         socket.emit('send message', msg);
         $('#m').val('');
       }
-      document.getElementById("blur-hack").focus();
+      $('#m').blur();
       return false;
     })
 
