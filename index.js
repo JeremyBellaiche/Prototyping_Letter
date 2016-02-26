@@ -24,13 +24,33 @@ function inArray(needle, haystack) {
     return false;
 }
 
+function findById(source, id) {
+  for (var i = 0; i < source.length; i++) {
+    if (source[i].id === id) {
+      return source[i];
+    }
+  }
+  throw "Couldn't find object with id: " + id;
+}
+
+var users = [];
 
 io.on('connection', function(socket){
   // A user connected
-  console.log('IN');
-  socket.on('disconnect', function(){
+  users.push(socket);
+
+  socket.on('register', function(username){
+    io.emit('register', username);
+  });
+
+  socket.on('disconnected', function(username){
+    io.emit('disconnected', username);
+  })
+
+  socket.on('disconnect', function(username){
     // A user disconnected
-    console.log('OUT');
+    var i = users.indexOf(socket);
+    users.splice(i, 1);
   });
 
   socket.on('send message', function(msg){

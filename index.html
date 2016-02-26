@@ -20,7 +20,9 @@
   </footer>
   <header>
     <div class="container">    
-      Actual : <span id="version"></span> <a class="btn btn-info pull-right" id="changeVersion">Change</a>
+      Actual : <span id="version"></span> 
+      <a class="btn btn-info pull-right visible-xs changeVersion">Change</a>
+      <a class="btn btn-info hidden-xs changeVersion">Change</a>
     </div>
   </header>
 
@@ -48,21 +50,30 @@
       return /\s/g.test(s);
     }
 
+    window.onbeforeunload = function () {
+      socket.emit('disconnected', userId);
+    }
+
     var userId = prompt('What is your name ? Without spaces !');
-    $('#messages').append('<li class="info">Welcome <b>'+userId+'</b> !</<li>');
-    $('#messages').append('<li class="info">You can use the messaging app in two ways :</<li>');
-    $('#messages').append('<li class="info">The first one and the one by default is : "Letter", so your messages will appear letter by letter</<li>');
-    $('#messages').append('<li class="info">The second one and is : "Words", so your messages will appear word by word</<li>');
-    $('#messages').append('<li class="info">To change it, click on "Change" on the top right of the window.</<li>');
+
+    socket.emit('register', userId);
+
+
+    $('#messages').append('<li class="info visible-xs">Welcome <b>'+userId+'</b> !</<li>');
+    $('#messages').append('<li class="info visible-xs">You can use the messaging app in two ways :</<li>');
+    $('#messages').append('<li class="info visible-xs">The first one and the one by default is : "Letter", so your messages will appear letter by letter</<li>');
+    $('#messages').append('<li class="info visible-xs">The second one and is : "Words", so your messages will appear word by word</<li>');
+    $('#messages').append('<li class="info visible-xs">To change it, click on "Change" on the top right of the window.</<li>');
 
 
     function scrollToBottom(){
       document.getElementById( 'bottom' ).scrollIntoView();
     }
+
     // SET UP VERSION HTML CODE
     $('#version').html(version);
 
-    $('#changeVersion').on('click', function(){
+    $('.changeVersion').on('click', function(){
       if(version == 'letters'){
         version = 'words';      
       }
@@ -120,6 +131,15 @@
       else{
       }
     });
+
+    socket.on('register', function(username){
+      $('#messages').append('<li class="info"><i>'+username+' enter in the chat</i></li>');
+    });
+
+    socket.on('disconnected', function(username){
+      $('#messages').append('<li class="info"><i>'+username+' leave the chat</i></li>');
+    })
+
 
 
     // USER CLICK ON SEND ON A MESSAGE
