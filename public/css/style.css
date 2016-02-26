@@ -5847,6 +5847,10 @@ section ul {
     section ul li.someone {
       background: #FFF;
       float: left; }
+    section ul li.info {
+      text-align: center;
+      width: 100%;
+      background: #FFF; }
 
 p {
   word-wrap: break-word; }

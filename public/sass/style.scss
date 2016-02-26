@@ -39,8 +39,11 @@ section{
 			&.someone{
 				background:#FFF;
 				float:left;
-				li{	
-				}
+			}
+			&.info{
+				text-align: center;
+				width: 100%;
+				background:#FFF;
 			}
 		}
 	}
