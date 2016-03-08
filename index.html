@@ -19,10 +19,20 @@
     </div>  
   </footer>
   <header>
-    <div class="container">    
-      Actual : <span id="version"></span> 
-      <a class="btn btn-info pull-right visible-xs changeVersion">Change</a>
-      <a class="btn btn-info hidden-xs changeVersion">Change</a>
+    <div class="container">
+      <div class="pull-left">      
+        Actual : <span id="version"></span> 
+        <a class="btn btn-info changeVersion">Change</a>
+      </div>    
+      <div class="pull-right">
+        Langage :
+        <select id="chooseLanguage">
+          <option value="EN">English</option>
+          <option value="FR">French</option>
+          <option value="RU">Russian</option>
+          <option value="NL">Netherlands</option>
+        </select>
+      </div>
     </div>
   </header>
 
@@ -40,11 +50,11 @@
   <div id="bottom"></div>
 
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
   <script>
     var socket = io();
     var version = 'letters';
-
+    var language = 'EN';
     // Launch the prompt modal
     function hasWhiteSpace(s) {
       return /\s/g.test(s);
@@ -70,7 +80,7 @@
       document.getElementById( 'bottom' ).scrollIntoView();
     }
 
-    // SET UP VERSION HTML CODE
+    // SET UP VERSION
     $('#version').html(version);
 
     $('.changeVersion').on('click', function(){
@@ -82,6 +92,30 @@
       }
       $('#version').html(version);
     });
+
+    // SET UP TRANSLATE  
+    $('#chooseLanguage').on('change', function(){
+      language = $(this).val();
+      console.log(language);
+    });
+
+    $('#messages').on('dblclick', 'li', function(value){
+      // The old sentence is
+      var sentence = $(this).html().replace(/(<([^>]+)>)/ig,"");
+      var sentenceWithoutSpaces = encodeURIComponent(sentence.trim());
+      // Make the call in JS
+      console.log('lang : ' + language);
+      console.log('sentenceWithoutSpaces : '+ sentenceWithoutSpaces);
+      $.ajax({
+        url: "https://www.googleapis.com/language/translate/v2?key=AIzaSyBfyr_UO94z5lUHQG8cZEw1o6PY30RILQg&target="+language+"&q="+sentenceWithoutSpaces,
+        context: document.body
+      }).done(function( data ) {
+        console.log(data);
+        // Replace the new sentence
+        $(this).html(data.translations.translatedText);
+      });
+    });
+
     // METHODS
     $('form').submit(function(){
       if($('#m').val() != ''){
